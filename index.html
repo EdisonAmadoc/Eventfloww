@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Metadatos esenciales para codificación y responsividad -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Título que aparece en la pestaña del navegador -->
+    <title>EventFlow - Crea, Vota y Descubre Eventos</title>
+    
+    <!-- Enlace al archivo CSS principal para estilos -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Ícono de la pestaña (favicon) -->
+    <link rel="icon" href="public/icons/favicon.ico" type="image/x-icon">
+    
+    <!-- Preload y carga diferida de fuentes desde Google Fonts para optimizar rendimiento -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <!-- Fuente alternativa para navegadores sin JavaScript -->
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    </noscript>
+</head>
+<body>
+    <!-- Header principal con navegación y controles -->
+    <header class="main-header">
+        <div class="container flex justify-between items-center py-4">
+            <!-- Logo con enlace a la sección "home" -->
+            <a href="#home" class="logo flex items-center" aria-label="Ir a la página de inicio">
+                <img src="Imagenes/Image_fx (1).jpg" alt="Logo de EventFlow" class="logo-img">
+                <span class="logo-text">EventFlow</span>
+            </a>
+            <!-- Botón para abrir/cerrar menú en dispositivos móviles -->
+            <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menú de navegación" aria-controls="main-nav" aria-expanded="false">
+                ☰
+            </button>
+            <!-- Botón para alternar modo oscuro -->
+            <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Alternar modo oscuro">
+                🌙
+            </button>
+            <!-- Navegación principal del sitio -->
+            <nav id="main-nav" class="main-nav" aria-label="Navegación principal del sitio">
+                <ul class="nav-list">
+                    <!-- Enlaces a las distintas secciones del sitio -->
+                    <li><a href="#home" class="nav-link" data-section="home" aria-current="page">Inicio</a></li>
+                    <li><a href="#explore" class="nav-link" data-section="explore">Explorar Eventos</a></li>
+                    <li><a href="#create" class="nav-link" data-section="create">Crear Evento</a></li>
+                    <li><a href="#ranking" class="nav-link" data-section="ranking">Ranking</a></li>
+                    <li><a href="#profile" class="nav-link" data-section="profile">Perfil</a></li>
+                    <li><a href="#auth" class="nav-link btn btn-primary" data-section="auth">Login / Registro</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenedor principal del contenido dinámico -->
+    <main id="app-content" class="app-content">
+        <!-- Sección de inicio con banner principal y características -->
+        <section id="home-section" class="page-section active" role="region" aria-labelledby="home-heading">
+            <div class="hero-banner">
+                <!-- Título principal de la plataforma -->
+                <h1 id="home-heading">Crea, Vota y Descubre Eventos Increíbles</h1>
+                <p>Tu plataforma para la participación interactiva en eventos. ¡Donde tus ideas toman vuelo!</p>
+                <!-- Botones de llamada a la acción -->
+                <div class="hero-ctas">
+                    <a href="#create" class="btn btn-primary" data-section="create">Crear Evento Ahora</a>
+                    <a href="#explore" class="btn btn-secondary" data-section="explore">Explorar Eventos</a>
+                </div>
+            </div>
+
+            <!-- Grid con características principales de la plataforma -->
+            <div class="features-grid container">
+                <!-- Tarjeta de característica: votar -->
+                <article class="feature-card card">
+                    <div class="icon-wrapper">🚀</div>
+                    <h3>Vota por tus favoritos</h3>
+                    <p>Participa activamente en la comunidad votando por los eventos que más te interesan.</p>
+                </article>
+                <!-- Tarjeta de característica: crear eventos -->
+                <article class="feature-card card">
+                    <div class="icon-wrapper">✨</div>
+                    <h3>Crea tus propios eventos</h3>
+                    <p>Desde reuniones casuales hasta grandes conferencias, organiza y comparte tus ideas.</p>
+                </article>
+                <!-- Tarjeta de característica: explorar eventos -->
+                <article class="feature-card card">
+                    <div class="icon-wrapper">🌍</div>
+                    <h3>Explora un mundo de posibilidades</h3>
+                    <p>Descubre eventos únicos y relevantes creados por usuarios como tú.</p>
+                </article>
+            </div>
+
+            <!-- Sección para suscribirse al boletín informativo -->
+            <section class="newsletter-section container" aria-labelledby="newsletter-heading">
+                <h2 id="newsletter-heading">Suscríbete a Nuestro Boletín</h2>
+                <p>Recibe las últimas noticias y los eventos más votados directamente en tu bandeja de entrada.</p>
+                <form id="newsletter-form" class="newsletter-form">
+                    <!-- Campo para ingresar correo electrónico -->
+                    <label for="newsletter-email" class="sr-only">Dirección de correo electrónico</label>
+                    <input type="email" id="newsletter-email" name="email" placeholder="tu.correo@ejemplo.com" required aria-required="true">
+                    <!-- Botón para enviar formulario -->
+                    <button type="submit" class="btn btn-primary">Suscribirse</button>
+                    <!-- Área para mensajes de validación o confirmación -->
+                    <div id="newsletter-message" class="message-area" role="status" aria-live="polite"></div>
+                </form>
+            </section>
+        </section>
+
+        <!-- Sección para explorar eventos -->
+        <section id="explore-section" class="page-section" role="region" aria-labelledby="explore-heading">
+            <h2 id="explore-heading" class="section-title">Explorar Eventos</h2>
+            <!-- Contenedor dinámico donde se cargarán los eventos -->
+            <div id="events-grid" class="events-grid grid-3-cols">
+                <!-- Los eventos se insertarán aquí dinámicamente -->
+            </div>
+        </section>
+
+        <!-- Sección para crear un nuevo evento -->
+        <section id="create-section" class="page-section" role="region" aria-labelledby="create-heading">
+            <h2 id="create-heading" class="section-title">Crear Nuevo Evento</h2>
+            <div class="form-container card">
+                <form id="create-event-form" aria-live="polite">
+                    <!-- Campo para título del evento con validaciones -->
+                    <div class="form-group">
+                        <label for="event-title">Título del Evento:</label>
+                        <input type="text" id="event-title" name="title" required minlength="5" maxlength="100" aria-describedby="error-title">
+                        <p class="error-message" id="error-title" aria-atomic="true"></p>
+                    </div>
+                    <!-- Campo para descripción del evento -->
+                    <div class="form-group">
+                        <label for="event-description">Descripción:</label>
+                        <textarea id="event-description" name="description" rows="5" required minlength="20" aria-describedby="error-description"></textarea>
+                        <p class="error-message" id="error-description" aria-atomic="true"></p>
+                    </div>
+                    <!-- Campo para fecha del evento -->
+                    <div class="form-group">
+                        <label for="event-date">Fecha del Evento:</label>
+                        <input type="date" id="event-date" name="date" required aria-describedby="error-date">
+                        <p class="error-message" id="error-date" aria-atomic="true"></p>
+                    </div>
+                    <!-- Campo para URL de la imagen del evento -->
+                    <div class="form-group">
+                        <label for="event-image">URL de la Imagen:</label>
+                        <input type="url" id="event-image" name="imageUrl" placeholder="https://ejemplo.com/imagen.jpg" aria-describedby="error-image">
+                        <p class="error-message" id="error-image" aria-atomic="true"></p>
+                    </div>
+                    <!-- Selector de categoría del evento -->
+                    <div class="form-group">
+                        <label for="event-category">Categoría:</label>
+                        <select id="event-category" name="category" required aria-describedby="error-category">
+                            <option value="">Selecciona una categoría</option>
+                            <option value="tecnologia">Tecnología</option>
+                            <option value="arte">Arte</option>
+                            <option value="musica">Música</option>
+                            <option value="deporte">Deporte</option>
+                            <option value="social">Social</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                        <p class="error-message" id="error-category" aria-atomic="true"></p>
+                    </div>
+                    <!-- Botón para enviar el formulario de creación -->
+                    <button type="submit" class="btn btn-primary">Crear Evento</button>
+                    <!-- Área para mensajes de confirmación o error -->
+                    <div id="form-message" class="message-area" role="status" aria-live="polite"></div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Sección para mostrar detalle de un evento seleccionado -->
+        <section id="event-detail-section" class="page-section" role="region" aria-labelledby="event-detail-heading">
+            <!-- Contenido dinámico del detalle del evento se cargará aquí -->
+        </section>
+
+        <!-- Sección para ranking de eventos más votados -->
+        <section id="ranking-section" class="page-section" role="region" aria-labelledby="ranking-heading">
+            <h2 id="ranking-heading" class="section-title">Ranking de Eventos Más Votados</h2>
+            <div id="ranking-list" class="ranking-list">
+                <!-- Listado dinámico de eventos ordenados por votos -->
+            </div>
+        </section>
+
+        <!-- Sección de perfil del usuario -->
+        <section id="profile-section" class="page-section" role="region" aria-labelledby="profile-heading">
+            <h2 id="profile-heading" class="section-title">Mi Perfil</h2>
+            <div id="profile-content" class="profile-content card">
+                <!-- Contenido dinámico con datos del perfil -->
+            </div>
+        </section>
+
+        <!-- Sección de autenticación: login y registro -->
+        <section id="auth-section" class="page-section" role="region" aria-labelledby="auth-heading">
+            <h2 id="auth-heading" class="section-title">Acceder o Registrarse</h2>
+            <div class="auth-forms flex md-flex-row gap-4">
+                <!-- Formulario de login -->
+                <div class="form-container card flex-1">
+                    <h3>Login</h3>
+                    <form id="login-form" aria-live="polite">
+                        <div class="form-group">
+                            <label for="login-email">Email:</label>
+                            <input type="email" id="login-email" name="email" required aria-describedby="error-login-email">
+                            <p class="error-message" id="error-login-email" aria-atomic="true"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Contraseña:</label>
+                            <input type="password" id="login-password" name="password" required aria-describedby="error-login-password">
+                            <p class="error-message" id="error-login-password" aria-atomic="true"></p>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                        <div id="login-message" class="message-area" role="status" aria-live="polite"></div>
+                    </form>
+                </div>
+                <!-- Formulario de registro -->
+                <div class="form-container card flex-1">
+                    <h3>Registro</h3>
+                    <form id="register-form" aria-live="polite">
+                        <div class="form-group">
+                            <label for="register-name">Nombre de Usuario:</label>
+                            <input type="text" id="register-name" name="name" required minlength="3" aria-describedby="error-register-name">
+                            <p class="error-message" id="error-register-name" aria-atomic="true"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-email">Email:</label>
+                            <input type="email" id="register-email" name="email" required aria-describedby="error-register-email">
+                            <p class="error-message" id="error-register-email" aria-atomic="true"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">Contraseña:</label>
+                            <input type="password" id="register-password" name="password" required minlength="6" aria-describedby="error-register-password">
+                            <p class="error-message" id="error-register-password" aria-atomic="true"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password-confirm">Confirmar Contraseña:</label>
+                            <input type="password" id="register-password-confirm" name="passwordConfirm" required aria-describedby="error-register-password-confirm">
+                            <p class="error-message" id="error-register-password-confirm" aria-atomic="true"></p>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Registrarse</button>
+                        <div id="register-message" class="message-area" role="status" aria-live="polite"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pie de página con información, enlaces y contacto -->
+    <footer class="main-footer">
+        <div class="container flex flex-col md-flex-row gap-8 py-8">
+            <!-- Información general de la plataforma -->
+            <section class="footer-info flex-1">
+                <h3>EventFlow</h3>
+                <p>Tu plataforma definitiva para descubrir, crear y votar por los eventos más emocionantes. ¡Conéctate, participa y haz que tu voz se escuche!</p>
+                <!-- Enlaces a redes sociales -->
+                <ul class="social-links flex gap-4 mt-4">
+                    <li><a href="#" aria-label="Síguenos en Facebook">Facebook</a></li>
+                    <li><a href="#" aria-label="Síguenos en Twitter">Twitter</a></li>
+                    <li><a href="#" aria-label="Síguenos en Instagram">Instagram</a></li>
+                </ul>
+            </section>
+            <!-- Navegación rápida en el footer -->
+            <nav class="footer-nav flex-1" aria-label="Enlaces del pie de página">
+                <h3>Enlaces Rápidos</h3>
+                <ul class="footer-list">
+                    <li><a href="#home" data-section="home">Inicio</a></li>
+                    <li><a href="#explore" data-section="explore">Explorar Eventos</a></li>
+                    <li><a href="#create" data-section="create">Crear Evento</a></li>
+                    <li><a href="#profile" data-section="profile">Mi Perfil</a></li>
+                </ul>
+            </nav>
+            <!-- Contacto y soporte -->
+            <section class="footer-contact flex-1" aria-label="Información de contacto">
+                <h3>Contacto</h3>
+                <address>
+                    <p>Email: <a href="email:">soportex@EventFlow.com</a></p>
+                    <p>Teléfono: <a href="tel:">3142352488</a></p>
+                    <p>Dirección: Uniagustiniana Tagaste</p>
+                </address>
+            </section>
+        </div>
+        <!-- Derechos reservados -->
+        <div class="footer-bottom text-center py-4">
+            <p>© 2025 EventFlow. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts JavaScript para la funcionalidad -->
+    <script src="script.js" defer></script>
+</body>
+</html>
